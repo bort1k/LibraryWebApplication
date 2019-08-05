@@ -1,0 +1,304 @@
+
+/* HOME PAGE */
+a {
+    text-decoration: none !important;
+}
+
+body p, a, h1, h2, h3 {
+    font-family: Roboto, serif;
+}
+
+.header_main_image {
+    width: 100%;
+    height: 500px;
+    background: url("../images/MainImage.png") no-repeat;
+    background-size: cover;
+    margin-bottom: 0;
+}
+
+.my_header_main {
+    background: rgba(255, 239, 213, 0.64);
+    height: 80px;
+    font-size: 18px;
+}
+
+.my_header_other{
+    background: #FFDFBF;
+    height: 80px;
+    font-size: 18px;
+}
+
+.my_header_main a, p {
+    color: #8C4637;
+}
+
+.my_header_other a, p {
+    color: #8C4637;
+}
+
+.my_header_main a:hover, .my_header_other a:hover {
+    color: #6E1300;
+}
+
+.dropdown_language {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.dropdown_language:hover .dropdown-content {
+    display: block;
+}
+
+.main_phrase {
+    position: absolute;
+    top: 250px;
+}
+
+.main_phrase p {
+    color: #FFEFD5;
+}
+
+.main_phrase .first {
+    font-size: 90px;
+    margin-bottom: 0;
+}
+
+.main_phrase .second {
+    position: absolute;
+    top: 115px;
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+.search_book input[type=text] {
+    width: 300px;
+    height: 45px;
+    margin: auto;
+    border: none;
+    background: none;
+}
+
+.wrapper_search {
+    padding-top: 30px;
+    background: #FFEFD5;
+}
+
+.title_list{
+    padding-top: 60px;
+}
+
+.search_button {
+    height: 45px;
+    width: 45px;
+    background: none;
+    border: none;
+}
+
+.search_form{
+    margin: auto;
+    padding: auto;
+}
+
+.search_image {
+    width: 30px;
+}
+
+.search_book {
+    text-align: center;
+}
+.search_line{
+    height: 1px;
+    width: 350px;
+    margin: auto;
+    background: #734439;
+}
+
+.search_book textarea:focus, .search_book input:focus, .search_book button:focus{
+    outline: none;
+}
+
+.search_book button:focus img{
+    width: 32px;
+}
+
+.search_book input::placeholder{
+    color: #734439;
+    font-size: 18px;
+}
+
+
+.wrapper_image{
+    background: #FFD5BC;
+}
+
+.title_list{
+    background: #FFEFD5;
+    width: 100%;
+    padding-bottom: 60px;
+}
+
+.title_list .title{
+    margin-bottom: 30px;
+    color: #734439;
+}
+
+.book_image{
+    width: 180px;
+    height: 260px;
+    margin: 30px auto;
+}
+
+.book_name_wrapper{
+    padding: 5px;
+    background: #C8A192;
+    text-align: center;
+}
+
+.book_name_wrapper p{
+    font-size: 18px;
+    color: #FFEFD5;
+    margin: 0;
+}
+
+.my_footer{
+    background: #8C4637;
+    padding: 30px;
+}
+
+.my_footer p{
+    color: #FFEFD5;
+    margin: 0;
+}
+
+.phone_icon img, .email img{
+    height: 30px;
+    margin:15px 15px 15px 0;
+}
+
+.social_icon img{
+    height: 30px;
+}
+
+.social_icon{
+    margin-bottom: 15px;
+}
+
+.social_icons{
+    margin-top: 15px;
+}
+
+.wrapper_icon{
+    width: 40px;
+}
+
+.phone_number, .email p, .social_icon p{
+    font-size: 20px;
+}
+
+.contact_us, .subscribe_social{
+    font-size: 23px;
+}
+
+.email{
+    margin-top: 15px;
+}
+
+.copyright{
+    bottom: 0;
+}
+
+.copyright p{
+    font-size: 14px;
+}
+
+
+
+/* ADMIN PAGE */
+
+.admin_left_menu{
+    height: 100%;
+    width: 20%;
+    background: #218DA6;
+    position: fixed;
+    overflow: auto;
+}
+
+.library_admin_text p{
+    color: white;
+    font-size: 30px;
+    margin:30px auto;
+}
+
+.admin_menu_button p{
+    border:2px solid white;
+    border-radius: 25px;
+    margin: 30px 30px;
+    padding:5px 0;
+    color: white;
+    text-align: center;
+}
+
+.admin_menu_button p:hover{
+    background: #52BAD2;
+}
+
+.admin_right{
+    position: absolute;
+    margin-left: 30%;
+}
+
+.admin_welcome_text p {
+    color: #218DA6;
+    font-size: 40px;
+    margin:20px auto 0 0;
+}
+
+.margin_block{
+    margin-bottom: 90px;
+}
+
+.table_book_list table{
+    width: 100vh;
+}
+
+.table_book_list table{
+    border-color: #218DA6;
+}
+
+.table_book_list thead{
+    color: white;
+}
+
+.table_book_list .table-primary thead{
+    background-color: #218DA6;
+}
+
+.table_book_list .table-primary tbody{
+    background-color: white;
+    color: #218DA6;
+}
+
+.admin_title_content{
+    color: #218DA6;
+    font-size: 30px;
+    margin-top: 90px;
+}
+
+.admin_line{
+    width: 100%;
+    height: 2px;
+    background: #218DA6;
+}
+
+.my_form_item p{
+    margin: 5px 0 5px 0;
+    font-size: 18px;
+    color: #218DA6;
+}
+
