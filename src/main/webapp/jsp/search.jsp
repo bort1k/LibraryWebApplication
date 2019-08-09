@@ -23,11 +23,13 @@
 <div class="title_list">
     <div class="container">
         <h2 class="title">
-            CATALOGUE
+            SEARCH FOR: ${requestScope.search_param}
         </h2>
-
+        <c:if test="${requestScope.search_size == 0}">
+            <h3 class="title">NOTHING WAS FOUND</h3>
+        </c:if>
         <div class="books_list row">
-            <c:forEach var="book" items="${requestScope.allBooks}">
+            <c:forEach var="book" items="${requestScope.booksSearchByParam}">
                 <div class="book_item col-4 mb-5">
                     <div class="w-100 wrapper_image d-flex">
                         <img class="book_image" src="data:image/jpg;base64,${book.base64Image}">

@@ -33,6 +33,14 @@ public class BookService {
         return books;
     }
 
+    public List<Book> getBooksSearchByParam(String param){
+        List<Book> books;
+        try (BookDao bookDao = daoFactory.createBookDao()){
+            books = bookDao.searchByParam(param);
+        }
+        return books;
+    }
+
     public Book getBookById(int id){
         Book book;
         try (BookDao bookDao = daoFactory.createBookDao()){

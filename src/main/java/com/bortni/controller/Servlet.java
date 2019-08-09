@@ -3,6 +3,7 @@ package com.bortni.controller;
 import com.bortni.controller.commands.CatalogueCommand;
 import com.bortni.controller.commands.Command;
 import com.bortni.controller.commands.HomeCommand;
+import com.bortni.controller.commands.SearchCommand;
 import com.bortni.controller.utils.UrlPath;
 import com.bortni.service.BookService;
 
@@ -26,6 +27,7 @@ public class Servlet extends HttpServlet {
         commands.put("/", new HomeCommand(bookService));
         commands.put(UrlPath.HOME, new HomeCommand(bookService));
         commands.put(UrlPath.CATALOGUE, new CatalogueCommand(bookService));
+        commands.put(UrlPath.SEARCH, new SearchCommand(bookService));
     }
 
     @Override

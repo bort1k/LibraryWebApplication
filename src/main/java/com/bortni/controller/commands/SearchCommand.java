@@ -10,17 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class CatalogueCommand implements Command {
+public class SearchCommand implements Command {
     private BookService bookService;
 
-    public CatalogueCommand(BookService bookService) {
+    public SearchCommand(BookService bookService) {
         this.bookService = bookService;
     }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Book> books = bookService.getAllAvailibleBooks();
-        request.setAttribute("allBooks", books);
-        request.getRequestDispatcher(Routes.CATALOGUE).forward(request, response);
+        String searchParam = request.getParameter("search_param");
+        request.setAttribute("search_param", searchParam);
+        List<Book> books = bookService.getBooksSearchByParam(searchParam);
+        request.setAttribute("search_size", books.size());
+        request.setAttribute("booksSearchByParam", books);
+        request.getRequestDispatcher(Routes.SEARCH).forward(request, response);
     }
 }

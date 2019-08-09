@@ -7,4 +7,14 @@ public class BookAttributeSqlQueries {
             "WHERE language_id = language.id AND attributes.id = ?;";
     public static final String SELECT_ALL_BY_BOOK_ID = "SELECT * FROM attributes, books_attributes, languages " +
             "WHERE language_id = languages.id AND attribute_id = attributes.id AND book_id = ?;";
+
+    public static String searchBookAttributesByBookId(String searchParam){
+        return "SELECT * FROM attributes " +
+                "LEFT JOIN books_attributes ON books_attributes.attribute_id = attributes.id " +
+                "LEFT JOIN languages ON attributes.language_id = languages.id " +
+                "WHERE " +
+                "(" +
+                "(attributes.key_word LIKE '%" + searchParam + "%')" +
+                ");";
+    }
 }

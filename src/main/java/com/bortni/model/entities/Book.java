@@ -15,7 +15,7 @@ public class Book {
     private final String publicationOffice;
     private final List<BookAttribute> bookAttributes;
     private final Language language;
-    private String base64Image;
+    private final String base64Image;
 
     private Book(int id, String title, int numberOfPages, Author author, boolean isAvailable,
                  String address, Reader reader, String bookLanguage, int publicationYear,
@@ -191,8 +191,7 @@ public class Book {
                 ", publicationYear=" + publicationYear +
                 ", publicationOffice='" + publicationOffice + '\'' +
                 ", bookAttributes=" + bookAttributes +
-                ", language=" + language +
-                ", base64Image='" + base64Image + '\'' +
+                ", language=" + language + '\'' +
                 '}';
     }
 }

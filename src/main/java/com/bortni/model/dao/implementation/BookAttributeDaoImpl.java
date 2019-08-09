@@ -3,8 +3,6 @@ package com.bortni.model.dao.implementation;
 import com.bortni.model.dao.BookAttributeDao;
 import com.bortni.model.dao.mapper.BookAttributeMapper;
 import com.bortni.model.dao.sql_queries.BookAttributeSqlQueries;
-import com.bortni.model.dao.sql_queries.BookSqlQueries;
-import com.bortni.model.entities.Book;
 import com.bortni.model.entities.BookAttribute;
 
 import java.sql.Connection;
@@ -49,11 +47,26 @@ public class BookAttributeDaoImpl implements BookAttributeDao {
 
     @Override
     public List<BookAttribute> getAll() {
-        List<BookAttribute> bookAttributes = new ArrayList<>();
         String sql = BookAttributeSqlQueries.SELECT_ALL;
-        final ResultSet resultSet;
+        return getBookAttributes(sql);
+    }
 
+    @Override
+    public List<BookAttribute> getAttributesByBookId(int book_id) {
+        String sql = BookAttributeSqlQueries.SELECT_ALL_BY_BOOK_ID;
+        return getBookAttributesByBookId(book_id, sql);
+    }
+
+    public List<BookAttribute> searchBookAttributesByBookId(String searchParam){
+        String sql = BookAttributeSqlQueries.searchBookAttributesByBookId(searchParam);
+        return getBookAttributes(sql);
+    }
+
+    private List<BookAttribute> getBookAttributesByBookId(int book_id, String sql) {
+        List<BookAttribute> bookAttributes = new ArrayList<>();
+        final ResultSet resultSet;
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setInt(1, book_id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 bookAttributes.add(mapper.getFromResultSet(resultSet));
@@ -65,14 +78,11 @@ public class BookAttributeDaoImpl implements BookAttributeDao {
         return bookAttributes;
     }
 
-    @Override
-    public List<BookAttribute> getAttributesByBookId(int id) {
+    private List<BookAttribute> getBookAttributes(String sql) {
         List<BookAttribute> bookAttributes = new ArrayList<>();
         final ResultSet resultSet;
-        String sql = BookAttributeSqlQueries.SELECT_ALL_BY_BOOK_ID;
 
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-            preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 bookAttributes.add(mapper.getFromResultSet(resultSet));

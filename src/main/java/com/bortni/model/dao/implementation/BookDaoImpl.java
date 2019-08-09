@@ -2,8 +2,10 @@ package com.bortni.model.dao.implementation;
 
 import com.bortni.model.dao.BookDao;
 import com.bortni.model.dao.mapper.BookMapper;
+import com.bortni.model.dao.sql_queries.BookAttributeSqlQueries;
 import com.bortni.model.dao.sql_queries.BookSqlQueries;
 import com.bortni.model.entities.Book;
+import com.bortni.model.entities.BookAttribute;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -103,13 +105,28 @@ public class BookDaoImpl implements BookDao {
         }
     }
 
+    public List<Book> searchByParam(String param){
+        List<Book> books;
+        String sqlSearchByTitleAndAuthor = BookSqlQueries.searchBooksTitleAndAuthorByParam(param);
+        String sqlSearchByAttributes = BookSqlQueries.searchBookAttributesByBookId(param);
+
+        if(getListByQuery(sqlSearchByTitleAndAuthor).size() != 0){
+            books = getListByQuery(sqlSearchByTitleAndAuthor);
+        }
+        else {
+            books = getListByQuery(sqlSearchByAttributes);
+        }
+        return books;
+    }
+
     private List<Book> getListByQuery(String query){
         List<Book> books = new ArrayList<>();
         final ResultSet resultSet;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
-            resultSet = preparedStatement.executeQuery();
+        try (PreparedStatement preparedStatementBook = connection.prepareStatement(query)){
+            resultSet = preparedStatementBook.executeQuery();
             while (resultSet.next()){
-                books.add( mapper.getFromResultSet(resultSet));
+                Book book = mapper.getBook(resultSet, getBookAttributes(resultSet.getInt(1)));
+                books.add(book);
             }
         } catch (SQLException | IOException e) {
             e.printStackTrace();
@@ -126,6 +143,10 @@ public class BookDaoImpl implements BookDao {
         preparedStatement.setString(5, object.getBookLanguage());
         preparedStatement.setInt(6, object.getPublicationYear());
         preparedStatement.setString(7, object.getPublicationOffice());
+    }
+
+    private List<BookAttribute> getBookAttributes(int book_id) {
+        return new BookAttributeDaoImpl(connection).getAttributesByBookId(book_id);
     }
 
 }

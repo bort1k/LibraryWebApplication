@@ -24,10 +24,10 @@
 <div class="wrapper_search">
     <div class="d-flex">
         <div class="search_book m-auto d-flex">
-            <form class="search_form" action="#">
-                <input type="text" placeholder="Search the book...">
-                <button class="search_button" type="submit"><img class="search_image"
-                                                                 src="../images/magnifying-glass.png">
+            <form class="search_form" action="${pageContext.request.contextPath}/library/search" method="get">
+                <input required type="text" placeholder="Search the book..." name="search_param" minlength="5">
+                <button class="search_button" type="submit">
+                    <img class="search_image" src="../images/magnifying-glass.png">
                 </button>
             </form>
         </div>

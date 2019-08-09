@@ -20,4 +20,10 @@ public class BookTest {
         int id = 2;
         System.out.println(bookDao.getById(id));
     }
+
+    @Test
+    public void getBooksSearchByParam(){
+        String param = "fantasy";
+        System.out.println(bookDao.searchByParam(param));
+    }
 }

@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,9 +18,13 @@ import java.util.List;
 public class BookMapper implements Mapper<Book> {
     @Override
     public Book getFromResultSet(ResultSet resultSet) throws SQLException, IOException {
+        return null;
+    }
+
+    public Book getBook(ResultSet resultSet, List<BookAttribute> bookAttributes) throws IOException, SQLException {
         return new Book.BookBuilder()
                 .setId(resultSet.getInt("books.id"))
-                .setTitle(resultSet.getString("title"))
+                .setTitle(resultSet.getString("books_translate.title"))
                 .setNumberOfPages(resultSet.getInt("number_of_pages"))
                 .setAuthor(new AuthorMapper().getFromResultSet(resultSet))
                 .setAvailable(resultSet.getBoolean("is_available"))
@@ -29,16 +34,10 @@ public class BookMapper implements Mapper<Book> {
                 .setPublicationOffice(resultSet.getString("publication_office"))
                 .setLanguage(new LanguageMapper().getFromResultSet(resultSet))
                 .setBase64Image(parseBlob(resultSet))
+                .setBookAttributes(bookAttributes)
                 .build();
     }
 
-    private List<BookAttribute> getBookAttributes(ResultSet resultSet) throws SQLException {
-        List<BookAttribute> bookAttributes = new ArrayList<>();
-        while (resultSet.next()){
-            bookAttributes.add(new BookAttributeMapper().getFromResultSet(resultSet));
-        }
-        return bookAttributes;
-    }
 
     private String parseBlob(ResultSet resultSet) throws SQLException, IOException {
         Blob blob = resultSet.getBlob("image");
@@ -57,4 +56,5 @@ public class BookMapper implements Mapper<Book> {
         outputStream.close();
         return base64Image;
     }
+
 }
