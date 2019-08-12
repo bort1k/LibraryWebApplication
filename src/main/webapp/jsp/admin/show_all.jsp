@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Library</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 </head>
 <body>
 <div class="admin_page d-flex">
@@ -12,13 +12,13 @@
         <div class="library_admin_text d-flex">
             <p>Library Admin</p>
         </div>
-        <a class="admin_menu_button d-block" href="admin-book-list.html">
+        <a class="admin_menu_button d-block" href="show_all.jsp">
             <p>Show all books</p>
         </a>
-        <a class="admin_menu_button d-block" href="admin-add-book.html">
+        <a class="admin_menu_button d-block" href="add_book.jsp">
             <p>Add the book</p>
         </a>
-        <a class="admin_menu_button d-block" href="home.jsp">
+        <a class="admin_menu_button d-block" href="../home.jsp">
             <p>Back to the site</p>
         </a>
     </div>

@@ -20,7 +20,7 @@ public class BookDaoImpl implements BookDao {
     private Connection connection;
     private BookMapper mapper = new BookMapper();
 
-    BookDaoImpl(Connection connection) {
+    public BookDaoImpl(Connection connection) {
         this.connection = connection;
     }
 
@@ -41,6 +41,7 @@ public class BookDaoImpl implements BookDao {
         String sql = BookSqlQueries.CREATE;
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             setParameters(object,preparedStatement);
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -78,6 +79,7 @@ public class BookDaoImpl implements BookDao {
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             setParameters(object, preparedStatement);
             preparedStatement.setInt(8, object.getId());
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException();

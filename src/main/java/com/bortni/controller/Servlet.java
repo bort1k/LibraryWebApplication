@@ -1,11 +1,9 @@
 package com.bortni.controller;
 
-import com.bortni.controller.commands.CatalogueCommand;
-import com.bortni.controller.commands.Command;
-import com.bortni.controller.commands.HomeCommand;
-import com.bortni.controller.commands.SearchCommand;
+import com.bortni.controller.commands.*;
 import com.bortni.controller.utils.UrlPath;
 import com.bortni.service.BookService;
+import com.bortni.service.ReaderService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,11 +21,17 @@ public class Servlet extends HttpServlet {
         commands = new HashMap<>();
 
         BookService bookService = new BookService();
+        ReaderService readerService = new ReaderService();
 
         commands.put("/", new HomeCommand(bookService));
         commands.put(UrlPath.HOME, new HomeCommand(bookService));
         commands.put(UrlPath.CATALOGUE, new CatalogueCommand(bookService));
         commands.put(UrlPath.SEARCH, new SearchCommand(bookService));
+        commands.put(UrlPath.SIGN_IN_PAGE, new SignInPageCommand());
+        commands.put(UrlPath.SIGN_UP_PAGE, new SignUpPageCommand());
+        commands.put(UrlPath.SIGN_IN, new SignInCommand(readerService));
+        commands.put(UrlPath.SIGN_UP, new SignUpCommand(readerService));
+        commands.put(UrlPath.READER_PROFILE, new ReaderProfileCommand());
     }
 
     @Override

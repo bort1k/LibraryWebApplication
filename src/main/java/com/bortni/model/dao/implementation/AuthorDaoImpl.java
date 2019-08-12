@@ -18,7 +18,7 @@ public class AuthorDaoImpl implements AuthorDao {
     private Connection connection;
     private AuthorMapper mapper = new AuthorMapper();
 
-    AuthorDaoImpl(Connection connection) {
+    public AuthorDaoImpl(Connection connection) {
         this.connection = connection;
     }
 

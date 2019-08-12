@@ -21,6 +21,8 @@ public class Language {
         private int id;
         private String languageName;
 
+        public LanguageBuilder(){}
+
         public LanguageBuilder setId(int id) {
             this.id = id;
             return this;

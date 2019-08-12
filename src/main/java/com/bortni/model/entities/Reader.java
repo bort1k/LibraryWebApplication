@@ -5,12 +5,16 @@ public class Reader {
     private final String email;
     private final String password;
     private final String telephoneNumber;
+    private final String firstName;
+    private final String lastName;
 
-    public Reader(int id, String email, String password, String telephoneNumber) {
+    public Reader(int id, String email, String password, String telephoneNumber, String firstName, String lastName) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.telephoneNumber = telephoneNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public int getId() {
@@ -29,11 +33,24 @@ public class Reader {
         return telephoneNumber;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
     public static class ReaderBuilder{
+
         private int id;
         private String email;
         private String password;
         private String telephoneNumber;
+        private String firstName;
+        private String lastName;
+
+        public ReaderBuilder(){}
 
         public ReaderBuilder setId(final int id) {
             this.id = id;
@@ -55,8 +72,18 @@ public class Reader {
             return this;
         }
 
+        public ReaderBuilder setLastName(final String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public ReaderBuilder setFirstName(final String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
         public Reader build(){
-            return new Reader(id, email, password, telephoneNumber);
+            return new Reader(id, email, password, telephoneNumber, firstName, lastName);
         }
     }
 

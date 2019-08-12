@@ -4,4 +4,12 @@ public class Routes {
     public static final String HOME = "/jsp/home.jsp";
     public static final String CATALOGUE = "/jsp/catalogue.jsp";
     public static final String SEARCH = "/jsp/search.jsp";
+    public static final String SIGN_IN = "/jsp/sign_in.jsp";
+    public static final String SIGN_UP = "/jsp/sign_up.jsp";
+    public static final String ADMIN_SHOW_ALL_BOOKS = "/jsp/admin/show_all.jsp";
+    public static final String ADMIN_ADD_BOOK = "/jsp/admin/add_book.jsp";
+    public static final String ADMIN_EDIT_BOOK = "/jsp/admin/edit_book.jsp";
+    public static final String READER_PROFILE = "/jsp/reader_profile.jsp";
+    public static final String SUCCESSFUL_REGISTRATION = "/jsp/successful_registration.jsp";
+
 }

@@ -217,7 +217,13 @@ body p, a, h1, h2, h3 {
     font-size: 14px;
 }
 
-
+.sign_form button{
+    background: #8C4637;
+    color: #FFEFD5;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
 
 /* ADMIN PAGE */
 

@@ -28,7 +28,7 @@ public class DaoFactoryImpl extends DaoFactory {
 
     @Override
     public ReaderDao createReaderDao() {
-        return new ReaderDaoImpl();
+        return new ReaderDaoImpl(getConnection());
     }
 
     private Connection getConnection(){
