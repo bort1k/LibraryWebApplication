@@ -31,6 +31,11 @@ public class DaoFactoryImpl extends DaoFactory {
         return new ReaderDaoImpl(getConnection());
     }
 
+    @Override
+    public OrderDao createOrderDao() {
+        return new OrderDaoImpl(getConnection());
+    }
+
     private Connection getConnection(){
         try{
             return dataSource.getConnection();

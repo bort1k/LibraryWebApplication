@@ -32,7 +32,7 @@
         <c:if test="${sessionScope.readerSession != null}">
             <a href="${pageContext.request.contextPath}/library/reader_profile">PROFILE</a>
             <a style="color: #8C4637">&#8195|&#8195</a>
-            <a href="${pageContext.request.contextPath}/library/log-out">LOG OUT</a>
+            <a href="${pageContext.request.contextPath}/library/log_out">LOG OUT</a>
         </c:if>
     </div>
 </div>

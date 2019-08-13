@@ -3,6 +3,7 @@ package com.bortni.controller;
 import com.bortni.controller.commands.*;
 import com.bortni.controller.utils.UrlPath;
 import com.bortni.service.BookService;
+import com.bortni.service.OrderService;
 import com.bortni.service.ReaderService;
 
 import javax.servlet.ServletException;
@@ -22,6 +23,7 @@ public class Servlet extends HttpServlet {
 
         BookService bookService = new BookService();
         ReaderService readerService = new ReaderService();
+        OrderService orderService = new OrderService();
 
         commands.put("/", new HomeCommand(bookService));
         commands.put(UrlPath.HOME, new HomeCommand(bookService));
@@ -31,7 +33,8 @@ public class Servlet extends HttpServlet {
         commands.put(UrlPath.SIGN_UP_PAGE, new SignUpPageCommand());
         commands.put(UrlPath.SIGN_IN, new SignInCommand(readerService));
         commands.put(UrlPath.SIGN_UP, new SignUpCommand(readerService));
-        commands.put(UrlPath.READER_PROFILE, new ReaderProfileCommand());
+        commands.put(UrlPath.READER_PROFILE, new ReaderProfileCommand(orderService));
+        commands.put(UrlPath.LOG_OUT, new LogOutCommand());
     }
 
     @Override

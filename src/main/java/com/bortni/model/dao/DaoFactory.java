@@ -16,6 +16,8 @@ public abstract class DaoFactory {
 
     public abstract ReaderDao createReaderDao();
 
+    public abstract OrderDao createOrderDao();
+
     public static DaoFactory getInstance(){
         if(daoFactory == null){
             synchronized (DaoFactory.class){

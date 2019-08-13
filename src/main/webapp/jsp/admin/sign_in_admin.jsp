@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
 </head>
 
-<body style="background: #FFEFD5; background-size: cover; ">
+<body style="background: #218DA6; background-size: cover; ">
 <div class="">
-    <div class="sign-up col-lg-4" style="color: #8C4637; margin:100px auto auto auto">
+    <div class="sign-up col-lg-4" style="color: white; margin:100px auto auto auto">
         <h3 class="mb-3">ADMINISTRATOR</h3>
         <form class="sign_form" action="${pageContext.request.contextPath}/library/admin" method="post">
             <div class="form-group">
