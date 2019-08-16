@@ -36,6 +36,11 @@ public class DaoFactoryImpl extends DaoFactory {
         return new OrderDaoImpl(getConnection());
     }
 
+    @Override
+    public AdministratorDao createAdministratorDao() {
+        return new AdministratorDaoImpl(getConnection());
+    }
+
     private Connection getConnection(){
         try{
             return dataSource.getConnection();

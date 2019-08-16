@@ -2,7 +2,7 @@ package com.bortni.model.dao.sql_queries;
 
 public class BookSqlQueries {
 
-    private static final String ORDER_BY_BOOKS_ID_DESC =
+    public static final String ORDER_BY_BOOKS_ID_DESC =
             "ORDER BY books.id DESC ";
     public static final String SELECT_ALL =
             "SELECT * FROM books, books_translate, authors, languages " +
@@ -19,6 +19,13 @@ public class BookSqlQueries {
 
     public static final String SELECT_LAST_THREE = SELECT_ALL_AVAILABLE +  "LIMIT 3";
 
+    public static final String SELECT_BOOK_ATTRIBUTES =
+            "SELECT * " +
+                    "FROM attributes, books_attributes, books, languages " +
+                    "WHERE attributes.id = books_attributes.attribute_id " +
+                    "AND books.id = books_attributes.book_id " +
+                    "AND attributes.language_id = languages.id " +
+                    "AND books_attributes.book_id = ? ";
 
 
     //need to be changed

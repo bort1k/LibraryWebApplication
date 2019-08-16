@@ -22,7 +22,6 @@ public class SecurityConfig {
         adminUrlPatterns.add(UrlPath.ADMIN_SHOW_ALL_BOOKS);
         adminUrlPatterns.add(UrlPath.ADMIN_ADD_BOOK);
         adminUrlPatterns.add(UrlPath.ADMIN_EDIT_BOOK);
-        adminUrlPatterns.add(UrlPath.SIGN_IN_ADMIN);
         mapConfig.put(Role.ADMINISTRATOR, adminUrlPatterns);
     }
 

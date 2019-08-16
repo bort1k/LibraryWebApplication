@@ -7,7 +7,7 @@
 <html lang="en">
 
 <head>
-    meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>Admin Library</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
@@ -20,7 +20,7 @@
         <form class="sign_form" action="${pageContext.request.contextPath}/library/admin" method="post">
             <div class="form-group">
                 <label for="login">Email:</label>
-                <input type="email" class="form-control" id="login" placeholder="Enter login" name="login" required>
+                <input type="text" class="form-control" id="login" placeholder="Enter login" name="login" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>

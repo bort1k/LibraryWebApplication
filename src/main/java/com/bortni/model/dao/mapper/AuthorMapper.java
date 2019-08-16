@@ -12,8 +12,8 @@ public class AuthorMapper implements Mapper<Author> {
     public Author getFromResultSet(ResultSet resultSet) throws SQLException {
         return new Author.AuthorBuilder()
                 .setId(resultSet.getInt("authors.id"))
-                .setFirstName(resultSet.getString("first_name"))
-                .setLastName(resultSet.getString("last_name"))
+                .setFirstName(resultSet.getString("authors.first_name"))
+                .setLastName(resultSet.getString("authors.last_name"))
                 .setLanguage(new LanguageMapper().getFromResultSet(resultSet))
                 .build();
     }

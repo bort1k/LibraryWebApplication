@@ -10,7 +10,7 @@ public class LanguageMapper implements Mapper<Language> {
     public Language getFromResultSet(ResultSet resultSet) throws SQLException {
         return new Language.LanguageBuilder()
                 .setId(resultSet.getInt("languages.id"))
-                .setLanguageName(resultSet.getString("language_name"))
+                .setLanguageName(resultSet.getString("languages.language_name"))
                 .build();
     }
 }

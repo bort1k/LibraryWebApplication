@@ -1,8 +1,10 @@
 package com.bortni.service;
 
+import com.bortni.model.dao.BookAttributeDao;
 import com.bortni.model.dao.BookDao;
 import com.bortni.model.dao.DaoFactory;
 import com.bortni.model.entities.Book;
+import com.bortni.model.entities.BookAttribute;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class BookService {
         List<Book> books;
         try (BookDao bookDao = daoFactory.createBookDao()){
             books = bookDao.getAll();
+            books.forEach(book -> book.setBookAttributes(bookDao.getBookAttributesByBookId(book.getId())));
         }
         return books;
     }
@@ -21,14 +24,16 @@ public class BookService {
         List<Book> books;
         try (BookDao bookDao = daoFactory.createBookDao()){
             books = bookDao.getLastThree();
+            books.forEach(book -> book.setBookAttributes(bookDao.getBookAttributesByBookId(book.getId())));
         }
         return books;
     }
 
-    public List<Book> getAllAvailibleBooks(){
+    public List<Book> getAllAvailableBooks(){
         List<Book> books;
         try (BookDao bookDao = daoFactory.createBookDao()){
             books = bookDao.getAllAvailable();
+            books.forEach(book -> book.setBookAttributes(bookDao.getBookAttributesByBookId(book.getId())));
         }
         return books;
     }

@@ -11,9 +11,9 @@ public class AdministratorMapper implements Mapper<Administrator>{
     @Override
     public Administrator getFromResultSet(ResultSet resultSet) throws SQLException {
         return new Administrator.AdministratorBuilder()
-                .setId(resultSet.getInt("id"))
-                .setLogin(resultSet.getString("login"))
-                .setPassword("password")
+                .setId(resultSet.getInt("administrator.id"))
+                .setLogin(resultSet.getString("administrator.login"))
+                .setPassword("administrator.password")
                 .build();
     }
 }

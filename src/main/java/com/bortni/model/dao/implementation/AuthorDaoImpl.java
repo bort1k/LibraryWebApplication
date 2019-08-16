@@ -76,6 +76,10 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public void close() {
-
+        try{
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
     }
 }

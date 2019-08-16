@@ -1,3 +1,8 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +30,7 @@
     <div class="admin_right">
         <div>
             <div class="admin_welcome_text d-flex">
-                <p>Welcome, Nikitos</p>
+                <p>Welcome, ${sessionScope.adminSession.login}</p>
             </div>
             <div class="admin_line"></div>
         </div>
@@ -33,7 +38,33 @@
             <p class="admin_title_content">All books</p>
         </div>
         <div class="book_list">
+            <div class="table_book_list mb-5">
+                <p class="text-center" style="color: #218DA6">Booked</p>
+                <table class="table table-primary table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Number of pages</th>
+                            <th>Reader</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${requestScope.orders}" var="order">
+                    <tr>
+                        <th>${order.book.id}</th>
+                        <td>${order.book.title}</td>
+                        <td>${order.book.author.firstName} ${order.book.author.lastName}</td>
+                        <td>${order.book.numberOfPages}</td>
+                        <td>${order.reader.email}</td>
+                    </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
             <div class="table_book_list">
+                <p class="text-center" style="color: #218DA6">Not Booked</p>
                 <table class="table table-primary table-striped">
                     <thead>
                     <tr>
@@ -45,34 +76,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>Harry Potter</td>
-                        <td>Joan Rolling</td>
-                        <td>345</td>
-                        <td>71d</td>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td>Harry Potter</td>
-                        <td>Joan Rolling</td>
-                        <td>345</td>
-                        <td>71d</td>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td>Harry Potter</td>
-                        <td>Joan Rolling</td>
-                        <td>345</td>
-                        <td>71d</td>
-                    </tr>
-                    <tr>
-                        <th>4</th>
-                        <td>Harry Potter</td>
-                        <td>Joan Rolling</td>
-                        <td>345</td>
-                        <td>71d</td>
-                    </tr>
+                    <c:forEach items="${requestScope.books}" var="book">
+                        <tr>
+                            <th>${book.id}</th>
+                            <td>${book.title}</td>
+                            <td>${book.author.firstName} ${book.author.lastName}</td>
+                            <td>${book.numberOfPages}</td>
+                            <td>${book.address}</td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>

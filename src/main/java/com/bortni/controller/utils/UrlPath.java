@@ -12,6 +12,7 @@ public class UrlPath {
     public static final String ADMIN_ADD_BOOK = "/admin/add_book";
     public static final String ADMIN_EDIT_BOOK = "/admin/edit_book";
     public static final String READER_PROFILE = "/reader_profile";
-    public static final String SIGN_IN_ADMIN = "/admin";
+    public static final String ADMIN = "/admin";
     public static final String LOG_OUT = "/log_out";
+    public static final String ERROR_403 = "/403";
 }

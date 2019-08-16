@@ -33,23 +33,6 @@ public class BookMapper implements Mapper<Book> {
                 .build();
     }
 
-    public Book getBook(ResultSet resultSet, List<BookAttribute> bookAttributes) throws IOException, SQLException {
-        return new Book.BookBuilder()
-                .setId(resultSet.getInt("books.id"))
-                .setTitle(resultSet.getString("books_translate.title"))
-                .setNumberOfPages(resultSet.getInt("number_of_pages"))
-                .setAuthor(new AuthorMapper().getFromResultSet(resultSet))
-                .setAvailable(resultSet.getBoolean("is_available"))
-                .setAddress(resultSet.getString("address"))
-                .setBookLanguage(resultSet.getString("book_language"))
-                .setPublicationYear(resultSet.getInt("publication_year"))
-                .setPublicationOffice(resultSet.getString("publication_office"))
-                .setLanguage(new LanguageMapper().getFromResultSet(resultSet))
-                .setBase64Image(parseBlob(resultSet))
-                .setBookAttributes(bookAttributes)
-                .build();
-    }
-
 
     private String parseBlob(ResultSet resultSet) throws SQLException, IOException {
         Blob blob = resultSet.getBlob("image");
@@ -67,6 +50,16 @@ public class BookMapper implements Mapper<Book> {
         inputStream.close();
         outputStream.close();
         return base64Image;
+    }
+
+    public List<BookAttribute> getBookAttributes(ResultSet resultSet) throws SQLException {
+        List<BookAttribute> bookAttributes = new ArrayList<>();
+
+        while (resultSet.next()){
+            bookAttributes.add(new BookAttributeMapper().getFromResultSet(resultSet));
+        }
+        return bookAttributes;
+
     }
 
 }

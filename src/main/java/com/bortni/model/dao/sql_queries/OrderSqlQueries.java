@@ -1,9 +1,9 @@
 package com.bortni.model.dao.sql_queries;
 
 public class OrderSqlQueries {
-    public static final String SELECT_ALL = "SELECT * FROM books, books_translate, authors, languages, orders, readers "+
+    public static final String SELECT_ALL = "SELECT * FROM books, books_translate, authors, languages, orders, readers " +
             "WHERE books.id = books_translate.book_id " +
-            "AND author_id = authors.id " +
+            "AND books.author_id = authors.id " +
             "AND languages.id = books_translate.language_id " +
             "AND languages.id = authors.language_id " +
             "AND orders.book_id = books.id " +

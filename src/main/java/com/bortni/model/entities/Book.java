@@ -13,7 +13,7 @@ public class Book {
     private final String bookLanguage;
     private final int publicationYear;
     private final String publicationOffice;
-    private final List<BookAttribute> bookAttributes;
+    private List<BookAttribute> bookAttributes;
     private final Language language;
     private final String base64Image;
 
@@ -85,6 +85,10 @@ public class Book {
 
     public Author getAuthor() {
         return author;
+    }
+
+    public void setBookAttributes(List<BookAttribute> bookAttributes){
+        this.bookAttributes = bookAttributes;
     }
 
     public static class BookBuilder{

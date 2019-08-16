@@ -2,6 +2,7 @@ package com.bortni.controller;
 
 import com.bortni.controller.commands.*;
 import com.bortni.controller.utils.UrlPath;
+import com.bortni.service.AdministratorService;
 import com.bortni.service.BookService;
 import com.bortni.service.OrderService;
 import com.bortni.service.ReaderService;
@@ -24,6 +25,7 @@ public class Servlet extends HttpServlet {
         BookService bookService = new BookService();
         ReaderService readerService = new ReaderService();
         OrderService orderService = new OrderService();
+        AdministratorService administratorService = new AdministratorService();
 
         commands.put("/", new HomeCommand(bookService));
         commands.put(UrlPath.HOME, new HomeCommand(bookService));
@@ -35,6 +37,10 @@ public class Servlet extends HttpServlet {
         commands.put(UrlPath.SIGN_UP, new SignUpCommand(readerService));
         commands.put(UrlPath.READER_PROFILE, new ReaderProfileCommand(orderService));
         commands.put(UrlPath.LOG_OUT, new LogOutCommand());
+        commands.put(UrlPath.ADMIN, new AdminCommand(administratorService));
+        commands.put(UrlPath.ADMIN_SHOW_ALL_BOOKS, new AdminShowAllBooksCommand(bookService, orderService));
+        commands.put(UrlPath.ERROR_403, new Error403Command());
+
     }
 
     @Override

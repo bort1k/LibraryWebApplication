@@ -1,5 +1,6 @@
 package com.bortni.controller.filters;
 
+import com.bortni.controller.commands.Error403Command;
 import com.bortni.controller.security.Role;
 import com.bortni.controller.security.SecurityUtils;
 import com.bortni.controller.utils.UrlPath;
@@ -31,7 +32,7 @@ public class SecurityFilter implements Filter {
             response.sendRedirect("/library" + UrlPath.READER_PROFILE);
             return;
         }
-        if (UrlPath.SIGN_IN_ADMIN.equals(path) && signedInReader != null){
+        if (UrlPath.ADMIN.equals(path) && signedInReader != null){
             response.sendRedirect("/library" + UrlPath.ADMIN_SHOW_ALL_BOOKS);
             return;
         }
@@ -41,38 +42,16 @@ public class SecurityFilter implements Filter {
                     (administrator != null && SecurityUtils.hasPermission(request, Role.ADMINISTRATOR))){
                 filterChain.doFilter(request, response);
             }
-            else{
-                response.sendRedirect("/library" + UrlPath.SIGN_IN);
+            else {
+                new Error403Command().execute(request, response);
             }
         }
         else {
             filterChain.doFilter(request, response);
         }
 
-
-
     }
 
-    private void userFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain,
-                            Object signedInUser, String path, String page, String signIn, Role role) throws IOException, ServletException {
-
-        if(signIn.equals(path) && signedInUser != null){
-            response.sendRedirect("/library" + page);
-            return;
-        }
-
-        if(SecurityUtils.isSecurityPage(request)){
-            if(signedInUser != null && SecurityUtils.hasPermission(request, role)){
-                filterChain.doFilter(request, response);
-            }
-            else{
-                response.sendRedirect("/library" + signIn);
-            }
-        }
-        else {
-            filterChain.doFilter(request, response);
-        }
-    }
 
     @Override
     public void destroy() {

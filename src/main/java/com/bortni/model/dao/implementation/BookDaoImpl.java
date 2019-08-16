@@ -69,7 +69,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> getAll() {
-        String sql = BookSqlQueries.SELECT_ALL;
+        String sql = BookSqlQueries.SELECT_ALL + BookSqlQueries.ORDER_BY_BOOKS_ID_DESC;
         return getListByQuery(sql);
     }
 
@@ -107,6 +107,21 @@ public class BookDaoImpl implements BookDao {
         }
     }
 
+    public List<BookAttribute> getBookAttributesByBookId(int book_id){
+        List<BookAttribute> bookAttributes;
+        String sql = BookSqlQueries.SELECT_BOOK_ATTRIBUTES;
+        final ResultSet resultSet;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setInt(1, book_id);
+            resultSet = preparedStatement.executeQuery();
+            bookAttributes = mapper.getBookAttributes(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+        return bookAttributes;
+    }
+
     public List<Book> searchByParam(String param){
         List<Book> books;
         String sqlSearchByTitleAndAuthor = BookSqlQueries.searchBooksTitleAndAuthorByParam(param);
@@ -127,7 +142,7 @@ public class BookDaoImpl implements BookDao {
         try (PreparedStatement preparedStatementBook = connection.prepareStatement(query)){
             resultSet = preparedStatementBook.executeQuery();
             while (resultSet.next()){
-                Book book = mapper.getBook(resultSet, getBookAttributes(resultSet.getInt(1)));
+                Book book = mapper.getFromResultSet(resultSet);
                 books.add(book);
             }
         } catch (SQLException | IOException e) {
@@ -137,6 +152,7 @@ public class BookDaoImpl implements BookDao {
         return books;
     }
 
+
     private void setParameters(Book object, PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setString(1, object.getTitle());
         preparedStatement.setInt(2, object.getNumberOfPages());
@@ -145,10 +161,6 @@ public class BookDaoImpl implements BookDao {
         preparedStatement.setString(5, object.getBookLanguage());
         preparedStatement.setInt(6, object.getPublicationYear());
         preparedStatement.setString(7, object.getPublicationOffice());
-    }
-
-    private List<BookAttribute> getBookAttributes(int book_id) {
-        return new BookAttributeDaoImpl(connection).getAttributesByBookId(book_id);
     }
 
 }

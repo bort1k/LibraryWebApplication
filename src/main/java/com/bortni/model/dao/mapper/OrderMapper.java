@@ -10,10 +10,10 @@ public class OrderMapper implements Mapper<Order>{
     @Override
     public Order getFromResultSet(ResultSet resultSet) throws SQLException, IOException {
         return new Order.OrderBuilder()
-                .setId(resultSet.getInt("id"))
+                .setId(resultSet.getInt("orders.id"))
                 .setBook(new BookMapper().getFromResultSet(resultSet))
                 .setReader(new ReaderMapper().getFromResultSet(resultSet))
-                .setTime(resultSet.getTime("time"))
+                .setTime(resultSet.getTime("orders.time"))
                 .build();
     }
 }

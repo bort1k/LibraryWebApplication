@@ -10,18 +10,14 @@ public class OrderService {
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
     public List<Order> getAllOrders(){
-        List<Order> orders;
         try(OrderDao orderDao = daoFactory.createOrderDao()){
-            orders = orderDao.getAll();
+            return orderDao.getAll();
         }
-        return orders;
     }
 
     public List<Order> getOrdersByReaderId(int readerId){
-        List<Order> orders;
         try(OrderDao orderDao = daoFactory.createOrderDao()){
-            orders = orderDao.getByReaderId(readerId);
+            return orderDao.getByReaderId(readerId);
         }
-        return orders;
     }
 }

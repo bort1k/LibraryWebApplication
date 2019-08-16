@@ -27,7 +27,7 @@ public class SignInCommand implements Command {
         Reader reader = (Reader) request.getSession().getAttribute("readerSession");
 
         if(reader != null){
-            response.sendRedirect(UrlPath.READER_PROFILE);
+            response.sendRedirect("/library" + UrlPath.READER_PROFILE);
         }
         else {
             if(readerService.isReaderExist(email, password)){
@@ -37,7 +37,8 @@ public class SignInCommand implements Command {
             }
             else{
                 String message = "Wrong email or password";
-                request.setAttribute("SignInMessage", message);
+                request.setAttribute("SignInFailedMessage", message);
+                request.getRequestDispatcher(Routes.SIGN_IN).forward(request, response);
             }
         }
     }

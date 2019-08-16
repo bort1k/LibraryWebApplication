@@ -59,7 +59,8 @@ public class OrderDaoImpl implements OrderDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                orders.add(mapper.getFromResultSet(resultSet));
+                Order order = mapper.getFromResultSet(resultSet);
+                orders.add(order);
             }
         } catch (SQLException | IOException e) {
             e.printStackTrace();
@@ -80,6 +81,10 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public void close() {
-
+        try{
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
     }
 }
