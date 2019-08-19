@@ -2,6 +2,7 @@ package com.bortni.service;
 
 import com.bortni.model.dao.DaoFactory;
 import com.bortni.model.dao.ReaderDao;
+import com.bortni.model.entities.Order;
 import com.bortni.model.entities.Reader;
 
 import java.util.List;
@@ -32,10 +33,10 @@ public class ReaderService {
         }
     }
 
-    public boolean isReaderExist(String email, String password){
+    public boolean isReaderExist(Reader reader){
         boolean exist;
         try(ReaderDao readerDao = daoFactory.createReaderDao()){
-            exist = readerDao.isExist(email, password);
+            exist = readerDao.isExist(reader);
         }
         return exist;
     }

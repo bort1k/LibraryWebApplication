@@ -6,6 +6,8 @@ import com.bortni.model.dao.sql_queries.BookAttributeSqlQueries;
 import com.bortni.model.dao.sql_queries.BookSqlQueries;
 import com.bortni.model.entities.Book;
 import com.bortni.model.entities.BookAttribute;
+import com.bortni.model.entities.Language;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -17,11 +19,34 @@ import java.util.List;
 
 public class BookDaoImpl implements BookDao {
 
+    private Logger LOGGER = Logger.getLogger(BookDaoImpl.class);
+
     private Connection connection;
     private BookMapper mapper = new BookMapper();
 
     public BookDaoImpl(Connection connection) {
         this.connection = connection;
+    }
+
+    @Override
+    public Book getByIdAndLanguage(int bookId, Language language) {
+        Book book = new Book.BookBuilder().build();
+        final ResultSet resultSet;
+        String sql = BookSqlQueries.SELECT_ONE_WITH_LANGUAGE;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setInt(1, bookId);
+            preparedStatement.setInt(2, language.getId());
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                book = mapper.getFromResultSet(resultSet);
+                LOGGER.info("book was created");
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+        return book;
     }
 
     @Override
@@ -31,9 +56,16 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public List<Book> getLastThree() {
+    public List<Book> getAllAvailableByLanguage(Language language) {
+        String sql = BookSqlQueries.SELECT_ALL_AVAILABLE_WITH_LANGUAGE;
+        return getListByQueryAndLanguage(sql, language);
+    }
+
+
+    @Override
+    public List<Book> getLastThree(Language language) {
         String sql = BookSqlQueries.SELECT_LAST_THREE;
-        return getListByQuery(sql);
+        return getListByQueryAndLanguage(sql, language);
     }
 
     @Override
@@ -42,6 +74,7 @@ public class BookDaoImpl implements BookDao {
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             setParameters(object,preparedStatement);
             preparedStatement.execute();
+            LOGGER.info("book was created");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -60,6 +93,7 @@ public class BookDaoImpl implements BookDao {
             if(resultSet.next()){
                 book = mapper.getFromResultSet(resultSet);
             }
+            LOGGER.info("book was created");
         } catch (SQLException | IOException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -80,6 +114,7 @@ public class BookDaoImpl implements BookDao {
             setParameters(object, preparedStatement);
             preparedStatement.setInt(8, object.getId());
             preparedStatement.execute();
+            LOGGER.info("book was updated");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -92,6 +127,7 @@ public class BookDaoImpl implements BookDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setInt(1, object.getId());
             preparedStatement.executeQuery();
+            LOGGER.info("Book was deleted");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -102,17 +138,35 @@ public class BookDaoImpl implements BookDao {
     public void close() {
         try{
             connection.close();
+            LOGGER.info("connection was closed");
         } catch (SQLException e) {
             throw new RuntimeException();
         }
     }
 
-    public List<BookAttribute> getBookAttributesByBookId(int book_id){
+    public List<BookAttribute> getBookAttributesByBookId(int bookId){
         List<BookAttribute> bookAttributes;
         String sql = BookSqlQueries.SELECT_BOOK_ATTRIBUTES;
         final ResultSet resultSet;
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setInt(1, bookId);
+            resultSet = preparedStatement.executeQuery();
+            bookAttributes = mapper.getBookAttributes(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+        return bookAttributes;
+    }
+
+    @Override
+    public List<BookAttribute> getBookAttributesByBookIdAndLanguage(int book_id, Language language) {
+        List<BookAttribute> bookAttributes;
+        String sql = BookSqlQueries.SELECT_BOOK_ATTRIBUTES_WITH_LANGUAGE;
+        final ResultSet resultSet;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setInt(1, book_id);
+            preparedStatement.setInt(2, language.getId());
             resultSet = preparedStatement.executeQuery();
             bookAttributes = mapper.getBookAttributes(resultSet);
         } catch (SQLException e) {
@@ -143,6 +197,25 @@ public class BookDaoImpl implements BookDao {
             resultSet = preparedStatementBook.executeQuery();
             while (resultSet.next()){
                 Book book = mapper.getFromResultSet(resultSet);
+                books.add(book);
+                LOGGER.info("book was created");
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+        return books;
+    }
+
+    private List<Book> getListByQueryAndLanguage(String query, Language language){
+        List<Book> books = new ArrayList<>();
+        final ResultSet resultSet;
+        try (PreparedStatement preparedStatementBook = connection.prepareStatement(query)){
+            preparedStatementBook.setInt(1, language.getId());
+            resultSet = preparedStatementBook.executeQuery();
+            while (resultSet.next()){
+                Book book = mapper.getFromResultSet(resultSet);
+                LOGGER.info("book was created");
                 books.add(book);
             }
         } catch (SQLException | IOException e) {

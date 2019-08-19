@@ -5,10 +5,13 @@ public class BookAttribute {
     private final String keyWord;
     private final Language language;
 
-    private BookAttribute(int id, String keyWord, Language language) {
+    private final Book book;
+
+    private BookAttribute(int id, String keyWord, Language language, Book book) {
         this.id = id;
         this.keyWord = keyWord;
         this.language = language;
+        this.book = book;
     }
 
     public int getId() {
@@ -23,10 +26,15 @@ public class BookAttribute {
         return language;
     }
 
+    public Book getBook() {
+        return book;
+    }
+
     public static class BookAttributeBuilder {
         private int id;
         private String keyWord;
         private Language language;
+        private Book book;
 
         public BookAttributeBuilder() {
         }
@@ -46,8 +54,12 @@ public class BookAttribute {
             return this;
         }
 
+        public BookAttributeBuilder setBook(final Book book) {
+            this.book = book;
+            return this;
+        }
         public BookAttribute build(){
-            return new BookAttribute(this.id, this.keyWord, this.language);
+            return new BookAttribute(this.id, this.keyWord, this.language, this.book);
         }
     }
 

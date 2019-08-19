@@ -9,6 +9,6 @@ public class AuthorTest {
 
     @Test
     public void getAll(){
-        System.out.println(authorDao.getAll());
+        authorDao.getAll();
     }
 }

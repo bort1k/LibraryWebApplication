@@ -1,11 +1,9 @@
 package com.bortni.controller;
 
 import com.bortni.controller.commands.*;
+import com.bortni.controller.commands.admin.*;
 import com.bortni.controller.utils.UrlPath;
-import com.bortni.service.AdministratorService;
-import com.bortni.service.BookService;
-import com.bortni.service.OrderService;
-import com.bortni.service.ReaderService;
+import com.bortni.service.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,10 +24,11 @@ public class Servlet extends HttpServlet {
         ReaderService readerService = new ReaderService();
         OrderService orderService = new OrderService();
         AdministratorService administratorService = new AdministratorService();
+        LanguageService languageService = new LanguageService();
 
-        commands.put("/", new HomeCommand(bookService));
-        commands.put(UrlPath.HOME, new HomeCommand(bookService));
-        commands.put(UrlPath.CATALOGUE, new CatalogueCommand(bookService));
+        commands.put("/", new HomeCommand(bookService, languageService));
+        commands.put(UrlPath.HOME, new HomeCommand(bookService, languageService));
+        commands.put(UrlPath.CATALOGUE, new CatalogueCommand(bookService, languageService));
         commands.put(UrlPath.SEARCH, new SearchCommand(bookService));
         commands.put(UrlPath.SIGN_IN_PAGE, new SignInPageCommand());
         commands.put(UrlPath.SIGN_UP_PAGE, new SignUpPageCommand());
@@ -40,6 +39,16 @@ public class Servlet extends HttpServlet {
         commands.put(UrlPath.ADMIN, new AdminCommand(administratorService));
         commands.put(UrlPath.ADMIN_SHOW_ALL_BOOKS, new AdminShowAllBooksCommand(bookService, orderService));
         commands.put(UrlPath.ERROR_403, new Error403Command());
+        commands.put(UrlPath.BOOK_ITEM, new BookItemCommand(bookService, languageService));
+        commands.put(UrlPath.ORDER_BOOK, new OrderBookCommand(bookService, orderService));
+        commands.put(UrlPath.DELETE_ORDER, new DeleteOrderCommand(orderService));
+        commands.put(UrlPath.ADMIN_REFUSE_ORDER, new AdminRefuseOrderCommand(orderService));
+        commands.put(UrlPath.ADMIN_CONFIRM_ORDER, new AdminConfirmOrderCommand(orderService));
+        commands.put(UrlPath.ADMIN_RETURN_ORDER, new AdminReturnCommand(orderService));
+        commands.put(UrlPath.ADMIN_DELETE_BOOK, new AdminDeleteBookCommand(bookService));
+        commands.put(UrlPath.ADMIN_ADD_BOOK, new AdminAddBookCommand(bookService, languageService, authorService, bookAttributeService));
+        commands.put(UrlPath.ADMIN_ADD_BOOK_PAGE, new AdminAddBookCommand(bookService, languageService, authorService, bookAttributeService));
+        commands.put(UrlPath.ABOUT, new AboutCommand());
 
     }
 

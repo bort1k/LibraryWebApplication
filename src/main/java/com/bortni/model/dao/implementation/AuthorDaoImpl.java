@@ -24,7 +24,16 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public void create(Author object) {
-
+        String sql = AuthorSqlQueries.CREATE;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setString(1, object.getFirstName());
+            preparedStatement.setString(2, object.getLastName());
+            preparedStatement.setInt(3, object.getLanguage().getId());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 
     @Override

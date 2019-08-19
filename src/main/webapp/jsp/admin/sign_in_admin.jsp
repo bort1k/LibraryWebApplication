@@ -7,10 +7,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Library</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+    <jsp:include page="/jsp/head_tag.jsp"/>
 </head>
 
 <body style="background: #218DA6; background-size: cover; ">

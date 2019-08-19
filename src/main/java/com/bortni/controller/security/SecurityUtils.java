@@ -20,7 +20,6 @@ public class SecurityUtils {
     }
 
     public static boolean hasPermission(HttpServletRequest request, Role role){
-        System.out.println(request.getPathInfo() + "hui");
         return SecurityConfig.getAllUrlPatternsForRole(role).contains(request.getPathInfo());
     }
 

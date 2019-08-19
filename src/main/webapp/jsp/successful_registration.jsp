@@ -3,8 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 
-<!DOCTYPE HTML>
-<html lang="en">
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="${bundle}"/>
+
+<!DOCTYPE html>
+<html lang="${locale}">
 
 <head>
     <jsp:include page="head_tag.jsp"/>
@@ -13,9 +16,16 @@
 <body style="background: #FFEFD5; background-size: cover; ">
 <div class="">
     <div class="sign-up col-lg-4" style="color: #8C4637; margin:100px auto auto auto">
-        <h3>REGISTRATION IS SUCCESSFUL</h3>
-        <p class="mt-5">Now you can <a href="${pageContext.request.contextPath}/library/sign_in">sign in</a>
-            or go to <a href="${pageContext.request.contextPath}/library/home">home</a></p>
+        <h3><fmt:message key="label.successful.registration"/> </h3>
+        <p class="mt-5"><fmt:message key="label.successful.registration.now.you.can"/>
+            <a href="${pageContext.request.contextPath}/library/sign_in">
+                <fmt:message key="label.successful.registration.sign.in"/>
+            </a>
+            <fmt:message key="label.successful.registration.or.go.to"/>
+            <a href="${pageContext.request.contextPath}/library/home">
+                <fmt:message key="label.successful.registration.home"/>
+            </a>
+        </p>
     </div>
 </div>
 </body>

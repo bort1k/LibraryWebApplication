@@ -11,12 +11,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="${bundle}"/>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${locale}">
 <head>
     <jsp:include page="head_tag.jsp"/>
 </head>
 <body>
+<c:if test="${not empty refuse}">
+    <script type="text/javascript"> function alertName() {
+        alert("YOU CAN NOT DELETE THIS ORDER!")
+    }</script>
+</c:if>
+<script type="text/javascript"> window.onload = alertName;</script>
 <div class="my_header_other d-flex">
     <jsp:include page="header.jsp"/>
 </div>
@@ -43,6 +52,7 @@
                 <th scope="col">Book title</th>
                 <th scope="col">Order time</th>
                 <th scope="col">Order status</th>
+                <th scope="col">Delete order</th>
             </tr>
             </thead>
             <c:forEach items="${requestScope.orders}" var="order">
@@ -50,7 +60,15 @@
                     <td>${order.id}</td>
                     <td>${order.book.title}</td>
                     <td>${order.time}</td>
-                    <td></td>
+                    <td>${order.status}</td>
+                    <td>
+                        <form action="${pageContext.request.contextPath}/library/reader_profile/delete_order"
+                              method="post">
+                            <input type="hidden" value="/reader_profile" name="from">
+                            <input type="hidden" name="order_id" value="${order.id}">
+                            <input type="submit" value="<fmt:message key="label.profile.order.delete"/>">
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
         </table>

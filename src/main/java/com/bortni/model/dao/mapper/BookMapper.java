@@ -19,7 +19,7 @@ public class BookMapper implements Mapper<Book> {
     @Override
     public Book getFromResultSet(ResultSet resultSet) throws SQLException, IOException {
         return new Book.BookBuilder()
-                .setId(resultSet.getInt("books.id"))
+                .setId(resultSet.getInt("books_translate.id"))
                 .setTitle(resultSet.getString("books_translate.title"))
                 .setNumberOfPages(resultSet.getInt("number_of_pages"))
                 .setAuthor(new AuthorMapper().getFromResultSet(resultSet))

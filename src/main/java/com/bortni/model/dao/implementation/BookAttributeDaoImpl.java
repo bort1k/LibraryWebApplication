@@ -23,7 +23,18 @@ public class BookAttributeDaoImpl implements BookAttributeDao {
 
     @Override
     public void create(BookAttribute object) {
+        String sql = BookAttributeSqlQueries.CREATE;
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, object.getKeyWord());
+            preparedStatement.setInt(2, object.getLanguage().getId());
+            preparedStatement.setInt(3, object.getBook().getId());
+            preparedStatement.setInt(4, object.getId());
+            preparedStatement.execute();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 
     @Override

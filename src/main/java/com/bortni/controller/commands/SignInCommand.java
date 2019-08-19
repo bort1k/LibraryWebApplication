@@ -30,8 +30,8 @@ public class SignInCommand implements Command {
             response.sendRedirect("/library" + UrlPath.READER_PROFILE);
         }
         else {
-            if(readerService.isReaderExist(email, password)){
-                reader = readerService.getReaderByEmailAndPassword(email, password);
+            reader = readerService.getReaderByEmailAndPassword(email, password);
+            if(readerService.isReaderExist(reader)){
                 request.getSession().setAttribute("readerSession", reader);
                 response.sendRedirect("/library" + UrlPath.READER_PROFILE);
             }

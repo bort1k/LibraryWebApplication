@@ -1,15 +1,18 @@
 package com.bortni.service;
 
+import com.bortni.model.dao.AuthorDao;
 import com.bortni.model.dao.DaoFactory;
 import com.bortni.model.entities.Author;
 
 import java.util.List;
 
 public class AuthorService {
-    DaoFactory daoFactory = DaoFactory.getInstance();
+    private DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public void create(){
-
+    public void create(Author author){
+        try(AuthorDao authorDao = daoFactory.createAuthorDao()){
+            authorDao.create(author);
+        }
     }
 
     public void update(){

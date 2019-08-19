@@ -1,6 +1,7 @@
 package com.bortni.controller.commands;
 
 import com.bortni.controller.utils.Routes;
+import com.bortni.controller.utils.UrlPath;
 import com.bortni.model.entities.Reader;
 import com.bortni.service.ReaderService;
 
@@ -30,12 +31,12 @@ public class SignUpCommand implements Command {
         String password = request.getParameter("password");
 
         if(reader != null){
-            //
+            response.sendRedirect("/library" + UrlPath.READER_PROFILE);
         }
         else {
             if (readerService.isEmailExist(email)) {
-                String message = "Email is already exist";
-                request.setAttribute("SignUpMessage", message);
+                String message = "Email is already exist!";
+                request.setAttribute("SignUpFailedMessage", message);
                 request.getRequestDispatcher(Routes.SIGN_UP).forward(request, response);
             } else {
                 reader = new Reader.ReaderBuilder()

@@ -7,12 +7,14 @@ public class Order {
     private final Reader reader;
     private final Book book;
     private final Time time;
+    private final Status status;
 
-    private Order(int id, Reader reader, Book book, Time time) {
+    private Order(int id, Reader reader, Book book, Time time, Status status) {
         this.id = id;
         this.reader = reader;
         this.book = book;
         this.time = time;
+        this.status = status;
     }
 
     public int getId() {
@@ -31,11 +33,16 @@ public class Order {
         return time;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
     public static class OrderBuilder{
         private int id;
         private Reader reader;
         private Book book;
         private Time time;
+        private Status status;
 
         public OrderBuilder setId(final int id) {
             this.id = id;
@@ -57,8 +64,13 @@ public class Order {
             return this;
         }
 
+        public OrderBuilder setStatus(final Status status) {
+            this.status = status;
+            return this;
+        }
+
         public Order build(){
-            return new Order(id, reader, book, time);
+            return new Order(id, reader, book, time, status);
         }
     }
 

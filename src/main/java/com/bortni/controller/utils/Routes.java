@@ -16,4 +16,6 @@ public class Routes {
 
     public static final String ERROR_403 = "/jsp/errors/403.jsp";
 
+    public static final String BOOK_ITEM = "/jsp/book_item.jsp";
+    public static final String ABOUT = "/jsp/about.jsp";
 }

@@ -5,6 +5,7 @@ import com.bortni.model.dao.BookDao;
 import com.bortni.model.dao.DaoFactory;
 import com.bortni.model.entities.Book;
 import com.bortni.model.entities.BookAttribute;
+import com.bortni.model.entities.Language;
 
 import java.util.List;
 
@@ -20,11 +21,12 @@ public class BookService {
         return books;
     }
 
-    public List<Book> getLastThree(){
+    public List<Book> getLastThree(Language language){
         List<Book> books;
         try (BookDao bookDao = daoFactory.createBookDao()){
-            books = bookDao.getLastThree();
-            books.forEach(book -> book.setBookAttributes(bookDao.getBookAttributesByBookId(book.getId())));
+            books = bookDao.getLastThree(language);
+            books.forEach(book ->
+                    book.setBookAttributes(bookDao.getBookAttributesByBookIdAndLanguage(book.getId(), language)));
         }
         return books;
     }
@@ -38,10 +40,21 @@ public class BookService {
         return books;
     }
 
+    public List<Book> getAllAvailableBooksByLanguage(Language language){
+        List<Book> books;
+        try (BookDao bookDao = daoFactory.createBookDao()){
+            books = bookDao.getAllAvailableByLanguage(language);
+            books.forEach(book ->
+                    book.setBookAttributes(bookDao.getBookAttributesByBookIdAndLanguage(book.getId(), language)));
+        }
+        return books;
+    }
+
     public List<Book> getBooksSearchByParam(String param){
         List<Book> books;
         try (BookDao bookDao = daoFactory.createBookDao()){
             books = bookDao.searchByParam(param);
+            books.forEach(book -> book.setBookAttributes(bookDao.getBookAttributesByBookId(book.getId())));
         }
         return books;
     }
@@ -50,6 +63,16 @@ public class BookService {
         Book book;
         try (BookDao bookDao = daoFactory.createBookDao()){
             book = bookDao.getById(id);
+            book.setBookAttributes(bookDao.getBookAttributesByBookId(book.getId()));
+        }
+        return book;
+    }
+
+    public Book getBookByIdAndLanguage(int id, Language language){
+        Book book;
+        try (BookDao bookDao = daoFactory.createBookDao()){
+            book = bookDao.getByIdAndLanguage(id, language);
+            book.setBookAttributes(bookDao.getBookAttributesByBookIdAndLanguage(book.getId(), language));
         }
         return book;
     }

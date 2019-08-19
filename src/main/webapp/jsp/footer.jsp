@@ -1,3 +1,4 @@
+
 <%--
   Created by IntelliJ IDEA.
   User: Nikita
@@ -6,10 +7,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="${bundle}"/>
+
+<!DOCTYPE html>
+
 <div class="my_footer">
     <div class="footer_top container d-flex justify-content-between">
         <div class="col-4">
-            <p class="contact_us">CONTACT US</p>
+            <p class="contact_us"><fmt:message key="label.footer.contact.us"/> </p>
             <div class="phone_icons d-flex">
                 <div class="phone_icon">
                     <img src="../images/020-telegram.png">
@@ -23,19 +31,19 @@
 
         </div>
         <div class="col-5">
-            <p class="subscribe_social">SUBCRIBE TO OUR SOCIAL NETWORKS</p>
+            <p class="subscribe_social"><fmt:message key="label.footer.subscribe.social"/> </p>
             <div class="social_icons">
                 <div class="social_icon d-flex">
                     <div class="wrapper_icon">
                         <img src="../images/013-facebook.png">
                     </div>
-                    <p class="fb_link mt-auto mb-auto">www.facebook.com/chytalnya</p>
+                    <a href="https://www.facebook.com/nikita.bort"><p class="fb_link mt-auto mb-auto">www.facebook.com/chytalnya</p></a>
                 </div>
                 <div class="social_icon d-flex">
                     <div class="wrapper_icon">
                         <img src="../images/014-instagram.png">
                     </div>
-                    <p class="insta_link mt-auto mb-auto">www.instagram.com/chytalnya/</p>
+                    <a href="https://www.instagram.com/nbortik/"><p class="insta_link mt-auto mb-auto">www.instagram.com/chytalnya/</p></a>
                 </div>
             </div>
         </div>
@@ -49,8 +57,8 @@
         </div>
         <div class="col-5 position-relative">
             <div class="position-absolute copyright">
-                <p>COPYRIGHT ©2019 CHYTALNYA</p>
-                <p>ALL RIGHT RESERVED</p>
+                <p><fmt:message key="label.footer.copyright"/> </p>
+                <p><fmt:message key="label.footer.all.rights.reserved"/> </p>
             </div>
         </div>
     </div>

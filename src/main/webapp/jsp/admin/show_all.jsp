@@ -6,29 +6,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Library</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+    <jsp:include page="/jsp/head_tag.jsp"/>
 </head>
-<body>
+<body style="width: 100%">
 <div class="admin_page d-flex">
-    <div class="admin_left_menu">
-        <div class="library_admin_text d-flex">
-            <p>Library Admin</p>
-        </div>
-        <a class="admin_menu_button d-block" href="show_all.jsp">
-            <p>Show all books</p>
-        </a>
-        <a class="admin_menu_button d-block" href="add_book.jsp">
-            <p>Add the book</p>
-        </a>
-        <a class="admin_menu_button d-block" href="../home.jsp">
-            <p>Back to the site</p>
-        </a>
-    </div>
+    <jsp:include page="left_part.jsp"/>
     <div class="admin_right">
-        <div>
+        <div class="margin_block">
             <div class="admin_welcome_text d-flex">
                 <p>Welcome, ${sessionScope.adminSession.login}</p>
             </div>
@@ -37,35 +21,69 @@
         <div>
             <p class="admin_title_content">All books</p>
         </div>
-        <div class="book_list">
-            <div class="table_book_list mb-5">
+        <div class="book_list w-100">
+            <div class="table_book_list mb-5 ">
                 <p class="text-center" style="color: #218DA6">Booked</p>
-                <table class="table table-primary table-striped">
+                <table class="table table-primary table-striped w-auto">
                     <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>Number of pages</th>
-                            <th>Reader</th>
-                        </tr>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Number of pages</th>
+                        <th>Reader email</th>
+                        <th>Reader telephone number</th>
+                        <th>Status</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${requestScope.orders}" var="order">
-                    <tr>
-                        <th>${order.book.id}</th>
-                        <td>${order.book.title}</td>
-                        <td>${order.book.author.firstName} ${order.book.author.lastName}</td>
-                        <td>${order.book.numberOfPages}</td>
-                        <td>${order.reader.email}</td>
-                    </tr>
+                        <tr>
+                            <td>${order.book.id}</td>
+                            <td>${order.book.title}</td>
+                            <td>${order.book.author.firstName} ${order.book.author.lastName}</td>
+                            <td>${order.book.numberOfPages}</td>
+                            <td>${order.reader.email}</td>
+                            <td>${order.reader.telephoneNumber}</td>
+                            <td>${order.status}</td>
+                            <c:if test="${!(order.status == 'TAKEN_BY_READER')}">
+                                <td>
+                                    <form method="post"
+                                          action="${pageContext.request.contextPath}/library/admin/confirm_order">
+                                        <input type="hidden" name="from" value="/admin/show_all">
+                                        <input type="hidden" name="order_id" value="${order.id}">
+                                        <input type="submit" value="Confirm">
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method="post"
+                                          action="${pageContext.request.contextPath}/library/admin/refuse_order">
+                                        <input type="hidden" name="from" value="/admin/show_all">
+                                        <input type="hidden" name="order_id" value="${order.id}">
+                                        <input type="submit" value="Refuse">
+                                    </form>
+                                </td>
+                            </c:if>
+                            <c:if test="${order.status == 'TAKEN_BY_READER'}">
+                                <td>
+                                <form method="post"
+                                      action="${pageContext.request.contextPath}/library/admin/return_order">
+                                    <input type="hidden" name="from" value="/admin/show_all">
+                                    <input type="hidden" name="order_id" value="${order.id}">
+                                    <input type="submit" value="Return">
+                                </form>
+                                </td>
+                            </c:if>
+                        </tr>
                     </c:forEach>
                     </tbody>
                 </table>
             </div>
             <div class="table_book_list">
-                <p class="text-center" style="color: #218DA6">Not Booked</p>
-                <table class="table table-primary table-striped">
+                <p class="text-center" style="color: #218DA6">All books available</p>
+                <table class="table table-primary table-striped w-auto">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -73,6 +91,7 @@
                         <th>Author</th>
                         <th>Number of pages</th>
                         <th>Address</th>
+                        <th>Edit/Delete</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -83,6 +102,14 @@
                             <td>${book.author.firstName} ${book.author.lastName}</td>
                             <td>${book.numberOfPages}</td>
                             <td>${book.address}</td>
+                            <td>
+                                <form method="post"
+                                      action="${pageContext.request.contextPath}/library/admin/delete_book">
+                                    <input type="hidden" name="from" value="/admin/show_all">
+                                    <input type="hidden" name="book_id" value="${book.id}">
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

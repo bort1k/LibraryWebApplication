@@ -20,6 +20,8 @@ public abstract class DaoFactory {
 
     public abstract AdministratorDao createAdministratorDao();
 
+    public abstract LanguageDao createLanguageDao();
+
     public static DaoFactory getInstance(){
         if(daoFactory == null){
             synchronized (DaoFactory.class){

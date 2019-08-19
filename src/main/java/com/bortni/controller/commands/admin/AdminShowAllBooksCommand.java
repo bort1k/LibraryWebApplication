@@ -1,5 +1,6 @@
-package com.bortni.controller.commands;
+package com.bortni.controller.commands.admin;
 
+import com.bortni.controller.commands.Command;
 import com.bortni.controller.utils.Routes;
 import com.bortni.model.entities.Book;
 import com.bortni.model.entities.Order;

@@ -3,7 +3,9 @@ package com.bortni.model.dao.implementation;
 import com.bortni.model.dao.ReaderDao;
 import com.bortni.model.dao.mapper.ReaderMapper;
 import com.bortni.model.dao.sql_queries.ReaderSqlQueries;
+import com.bortni.model.entities.Order;
 import com.bortni.model.entities.Reader;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +14,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ReaderDaoImpl implements ReaderDao {
+
+    Logger LOGGER = Logger.getLogger(ReaderDaoImpl.class);
 
     private Connection connection;
     private ReaderMapper mapper = new ReaderMapper();
@@ -47,6 +52,7 @@ public class ReaderDaoImpl implements ReaderDao {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 reader = mapper.getFromResultSet(resultSet);
+                LOGGER.info("Reader was created");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,6 +70,7 @@ public class ReaderDaoImpl implements ReaderDao {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 readers.add(mapper.getFromResultSet(resultSet));
+                LOGGER.info("Reader was created");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,15 +80,18 @@ public class ReaderDaoImpl implements ReaderDao {
     }
 
     @Override
-    public boolean isExist(String email, String password) {
+    public boolean isExist(Reader reader) {
         boolean exist;
         String sql = ReaderSqlQueries.SELECT_READER_BY_EMAIL_AND_PASSWORD;
         final ResultSet resultSet;
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(1, reader.getEmail());
+            preparedStatement.setString(2, reader.getEmail());
+            preparedStatement.setString(3, reader.getPassword());
+            preparedStatement.setString(4, reader.getPassword());
             resultSet = preparedStatement.executeQuery();
             exist = resultSet.next();
+            LOGGER.info("Reader was checked");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -96,10 +106,13 @@ public class ReaderDaoImpl implements ReaderDao {
         Reader reader = new Reader.ReaderBuilder().build();
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, password);
+            preparedStatement.setString(4, password);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
                 reader = mapper.getFromResultSet(resultSet);
+                LOGGER.info("Reader was created");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,6 +130,7 @@ public class ReaderDaoImpl implements ReaderDao {
             preparedStatement.setString(1, email);
             resultSet = preparedStatement.executeQuery();
             exist = resultSet.next();
+            LOGGER.info("Reader was checked");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -137,6 +151,7 @@ public class ReaderDaoImpl implements ReaderDao {
     @Override
     public void close() {
         try{
+            LOGGER.info("Connection was closed");
             connection.close();
         } catch (SQLException e) {
             throw new RuntimeException();

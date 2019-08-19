@@ -151,7 +151,23 @@ body p, a, h1, h2, h3 {
 .book_image{
     width: 180px;
     height: 260px;
-    margin: 30px auto;
+    margin: 30px auto 10px auto;
+}
+
+.book_attributes_title{
+    font-size: 16px;
+}
+
+.book_attributes_item{
+    font-size: 14px;
+}
+
+.book_attributes p{
+    margin: 0 !important;
+}
+
+.book_attributes{
+    margin-bottom: 10px;
 }
 
 .book_name_wrapper{
@@ -164,6 +180,24 @@ body p, a, h1, h2, h3 {
     font-size: 18px;
     color: #FFEFD5;
     margin: 0;
+}
+
+.order_book_form input{
+    width: 100%;
+    background: #8C4637;
+    color: white;
+    border: #8C4637;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.book_item_order_book_form input{
+    width: 200px;
+}
+
+.order_book_form input:hover {
+    background: #8c2919;
+    padding: 6px;
 }
 
 .my_footer{
@@ -256,7 +290,8 @@ body p, a, h1, h2, h3 {
 
 .admin_right{
     position: absolute;
-    margin-left: 30%;
+    margin-left: 23%;
+    width: auto;
 }
 
 .admin_welcome_text p {
@@ -266,7 +301,11 @@ body p, a, h1, h2, h3 {
 }
 
 .margin_block{
-    margin-bottom: 90px;
+    margin-bottom: 30px;
+}
+
+.table_book_list{
+    width: auto;
 }
 
 .table_book_list table{
@@ -293,7 +332,6 @@ body p, a, h1, h2, h3 {
 .admin_title_content{
     color: #218DA6;
     font-size: 30px;
-    margin-top: 90px;
 }
 
 .admin_line{
@@ -306,5 +344,9 @@ body p, a, h1, h2, h3 {
     margin: 5px 0 5px 0;
     font-size: 18px;
     color: #218DA6;
+}
+
+.admin_edit_delete_book{
+    text-decoration: underline !important;
 }
 

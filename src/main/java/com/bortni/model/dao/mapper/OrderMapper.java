@@ -1,6 +1,7 @@
 package com.bortni.model.dao.mapper;
 
 import com.bortni.model.entities.Order;
+import com.bortni.model.entities.Status;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -14,6 +15,7 @@ public class OrderMapper implements Mapper<Order>{
                 .setBook(new BookMapper().getFromResultSet(resultSet))
                 .setReader(new ReaderMapper().getFromResultSet(resultSet))
                 .setTime(resultSet.getTime("orders.time"))
+                .setStatus(Status.valueOf(resultSet.getString("orders.status")))
                 .build();
     }
 }

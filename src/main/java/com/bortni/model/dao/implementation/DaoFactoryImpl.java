@@ -41,6 +41,11 @@ public class DaoFactoryImpl extends DaoFactory {
         return new AdministratorDaoImpl(getConnection());
     }
 
+    @Override
+    public LanguageDao createLanguageDao() {
+        return new LanguageDaoImpl(getConnection());
+    }
+
     private Connection getConnection(){
         try{
             return dataSource.getConnection();

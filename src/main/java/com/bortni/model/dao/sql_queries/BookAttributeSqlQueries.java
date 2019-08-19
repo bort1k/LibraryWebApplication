@@ -17,4 +17,8 @@ public class BookAttributeSqlQueries {
                 "(attributes.key_word LIKE '%" + searchParam + "%')" +
                 ");";
     }
+
+    public static final String CREATE = "INSERT INTO attributes, books_attributes " +
+            "(attributes.key_word, attributes.language.id, books_attributes.book_id, books_attributes.attribute_id) " +
+            "VALUES (?,?,?,?) ";
 }
