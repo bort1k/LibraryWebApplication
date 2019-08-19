@@ -3,6 +3,8 @@ package com.bortni.controller;
 import com.bortni.controller.commands.*;
 import com.bortni.controller.commands.admin.*;
 import com.bortni.controller.utils.UrlPath;
+import com.bortni.model.dao.sql_queries.AuthorSqlQueries;
+import com.bortni.model.entities.Author;
 import com.bortni.service.*;
 
 import javax.servlet.ServletException;
@@ -25,6 +27,8 @@ public class Servlet extends HttpServlet {
         OrderService orderService = new OrderService();
         AdministratorService administratorService = new AdministratorService();
         LanguageService languageService = new LanguageService();
+        AuthorService authorService = new AuthorService();
+        BookAttributeService bookAttributeService = new BookAttributeService();
 
         commands.put("/", new HomeCommand(bookService, languageService));
         commands.put(UrlPath.HOME, new HomeCommand(bookService, languageService));
@@ -47,7 +51,7 @@ public class Servlet extends HttpServlet {
         commands.put(UrlPath.ADMIN_RETURN_ORDER, new AdminReturnCommand(orderService));
         commands.put(UrlPath.ADMIN_DELETE_BOOK, new AdminDeleteBookCommand(bookService));
         commands.put(UrlPath.ADMIN_ADD_BOOK, new AdminAddBookCommand(bookService, languageService, authorService, bookAttributeService));
-        commands.put(UrlPath.ADMIN_ADD_BOOK_PAGE, new AdminAddBookCommand(bookService, languageService, authorService, bookAttributeService));
+        commands.put(UrlPath.ADMIN_ADD_BOOK_PAGE, new AdminAddBookPageCommand());
         commands.put(UrlPath.ABOUT, new AboutCommand());
 
     }

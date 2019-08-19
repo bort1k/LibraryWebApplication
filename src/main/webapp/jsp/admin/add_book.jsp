@@ -33,7 +33,7 @@
                 </div>
                 <div class = "my_form_item">
                     <p>Number of pages:</p>
-                    <input type="text" name="number_of_pages" placeholder="Enter number of pages" required>
+                    <input type="number" name="number_of_pages" placeholder="Enter number of pages" required>
                 </div>
                 <div class = "my_form_item">
                     <p>Address:</p>
@@ -45,7 +45,7 @@
                 </div>
                 <div class = "my_form_item">
                     <p>Publication year:</p>
-                    <input type="text" name="publication_year" placeholder="Enter publication year" required>
+                    <input type="number" name="publication_year" placeholder="Enter publication year" required>
                 </div>
                 <div class = "my_form_item">
                     <p>Publication office:</p>
