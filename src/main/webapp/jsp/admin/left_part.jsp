@@ -10,7 +10,7 @@
 <a class="admin_menu_button d-block" href="${pageContext.request.contextPath}/library/admin/show_all">
     <p>Show all books</p>
 </a>
-<a class="admin_menu_button d-block" href="${pageContext.request.contextPath}/library/admin/add_book">
+<a class="admin_menu_button d-block" href="${pageContext.request.contextPath}/library/admin/add_book_page">
     <p>Add the book</p>
 </a>
 <a class="admin_menu_button d-block" href="${pageContext.request.contextPath}/library/home">

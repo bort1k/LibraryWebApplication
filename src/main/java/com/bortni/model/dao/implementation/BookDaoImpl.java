@@ -126,7 +126,7 @@ public class BookDaoImpl implements BookDao {
         String sql = BookSqlQueries.DELETE;
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setInt(1, object.getId());
-            preparedStatement.executeQuery();
+            preparedStatement.execute();
             LOGGER.info("Book was deleted");
         } catch (SQLException e) {
             e.printStackTrace();

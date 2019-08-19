@@ -48,7 +48,7 @@ public class BookSqlQueries {
                     "AND books_attributes.book_id = ? " + LANGUAGE_ID;
 
     public static final String DELETE = "DELETE FROM books, books_translate " +
-            "WHERE books.id = books_translate.book_id AND books_translate.id=?";
+            "WHERE books.id = books_translate.book_id AND books_translate.id = ?";
 
     public static final String CREATE = "INSERT INTO books, books_translate " +
             "(number_of_pages, is_available, address, publication_year, image)";

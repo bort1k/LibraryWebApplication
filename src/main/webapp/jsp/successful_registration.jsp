@@ -18,7 +18,7 @@
     <div class="sign-up col-lg-4" style="color: #8C4637; margin:100px auto auto auto">
         <h3><fmt:message key="label.successful.registration"/> </h3>
         <p class="mt-5"><fmt:message key="label.successful.registration.now.you.can"/>
-            <a href="${pageContext.request.contextPath}/library/sign_in">
+            <a href="${pageContext.request.contextPath}/library/sign_in_page">
                 <fmt:message key="label.successful.registration.sign.in"/>
             </a>
             <fmt:message key="label.successful.registration.or.go.to"/>
